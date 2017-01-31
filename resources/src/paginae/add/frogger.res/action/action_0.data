@@ -8,7 +8,7 @@ Pick up the closest small kritter: a frog, crab, salamander or squirrel.
 #String preq
 
 #uint16 hk
-107
+113
 #uint16 ad length
 2
 #String ad[0]
