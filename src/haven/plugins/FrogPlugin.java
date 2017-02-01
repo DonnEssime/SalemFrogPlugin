@@ -1,7 +1,6 @@
 package haven.plugins;
 
 import haven.*;
-import java.awt.Color;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -25,19 +24,31 @@ public class FrogPlugin extends Plugin{
         while(gobs_iterator.hasNext()) {
             current_gob = gobs_iterator.next();
             Coord gob_location = current_gob.rc;
-            ResDrawable rd = null;
             String nm = "";
             try{
-                rd = current_gob.getattr(ResDrawable.class);
+                ResDrawable rd = current_gob.getattr(ResDrawable.class);
                 if(rd!=null)
+                {
                     nm = rd.res.get().name;
+                }
+                else
+                {
+                    Composite cmp = current_gob.getattr(Composite.class);
+                    if(cmp!=null)
+                    {
+                        nm = cmp.base.get().name;
+                    }
+                }
             }catch(Loading l){}
-            if(nm.contains("kritter") && (nm.contains("frog") || nm.contains("crab") || nm.contains("salamander") || nm.contains("squirrel")))
+            if(nm.contains("kritter"))
             {
-                double this_distance = gob_location.dist(player_location);
-                if((this_distance < distance)||closest_gob==null) {
-                    closest_gob = current_gob;
-                    distance = this_distance;
+                if ((nm.contains("frog") || nm.contains("crab") || nm.contains("salamander") || nm.contains("squirrel")))
+                {
+                    double this_distance = gob_location.dist(player_location);
+                    if((this_distance < distance)||closest_gob==null) {
+                        closest_gob = current_gob;
+                        distance = this_distance;
+                    }
                 }
             }
         }
